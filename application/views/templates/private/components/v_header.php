@@ -158,6 +158,23 @@
 	<script src="<?= base_url('assets/plugins/sweetalert.min.js') ?>"></script>
 	<script src="<?= base_url('vendor/almasaeed2010/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js') ?>"></script>
 	<script>
+		function tanggal_indonesian(tgl) {
+			var parts = tgl.split('-');
+			var hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum&#39;at', 'Sabtu'];
+			var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+			//
+			var tanggal = new Date(parts[0], parts[1] - 1, parts[2]).getDate();
+			var _hari = new Date(parts[0], parts[1] - 1, parts[2]).getDay();
+			var _bulan = new Date(parts[0], parts[1] - 1, parts[2]).getMonth();
+			var _tahun = new Date(parts[0], parts[1] - 1, parts[2]).getFullYear();
+			//
+			var hari = hari[_hari];
+			var bulan = bulan[_bulan];
+			//
+			var tahun = (_tahun < 1000) ? _tahun + 1900 : _tahun;
+			return hari + ', ' + tanggal + ' ' + bulan + ' ' + tahun;
+		}
+
 		function number_format(nStr) {
 			nStr += '';
 			x = nStr.split('.');
