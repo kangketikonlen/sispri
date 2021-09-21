@@ -1,0 +1,22 @@
+{
+	"name": "kangketikonlen/codeigniter-env",
+	"description": "Template awal framework codeigniter.",
+	"type": "project",
+	"authors": [
+		{
+			"name": "Gilang Pratama Priadi",
+			"email": "pratamapriadi96@gmail.com"
+		}
+	],
+	"minimum-stability": "stable",
+	"require": {
+		"php": ">=7.3",
+		"almasaeed2010/adminlte": "^3.0",
+		"phpoffice/phpspreadsheet": "^1.14",
+		"mpdf/mpdf": "^8.0",
+		"twbs/bootstrap": "4.0",
+		"google/apiclient": "^2.0",
+		"abraham/twitteroauth": "^2.0",
+		"vlucas/phpdotenv": "^5.3"
+	}
+}
