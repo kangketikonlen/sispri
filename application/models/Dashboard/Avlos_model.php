@@ -1,50 +1,17 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 class Avlos_model extends CI_Model
 {
-	protected $samples = "ak_data_system_samples";
-
-	public function get_list_data()
-	{
-		$this->datatables->select('samples_id, samples_nama, samples_deskripsi');
-		$this->datatables->from($this->samples);
-		$this->datatables->where($this->samples . '.deleted', FALSE);
-		$this->datatables->add_column('view', "<button id='edit' class='m-1 btn btn-sm btn-primary' data='$1'><i class='fa fa-pencil-alt'></i></button> <button id='hapus' class='m-1 btn btn-sm btn-danger' data='$1'><i class='fa fa-trash'></i></button>", "samples_id");
-		return $this->datatables->generate();
-	}
-
-	public function simpan($data)
-	{
-		return $this->db->insert($this->samples, $data);
-	}
+	protected $poli = "ak_data_master_poli";
 
 	public function get_data()
 	{
-		$this->db->where($this->samples . '.samples_id', $this->input->post('samples_id'));
-		return $this->db->get($this->samples)->row();
+		$this->db->where($this->poli . '.deleted', false);
+		return $this->db->get($this->poli)->result();
 	}
 
-	public function edit($data)
+	public function get_poli($id)
 	{
-		$this->db->where($this->samples . '.samples_id', $this->input->post('samples_id'));
-		return $this->db->update($this->samples, $data);
-	}
-
-	public function hapus($data)
-	{
-		$this->db->where($this->samples . '.samples_id', $this->input->post('samples_id'));
-		return $this->db->update($this->samples, $data);
-	}
-
-	public function options()
-	{
-		$this->db->where($this->samples . '.deleted', FALSE);
-		$opt = $this->db->get($this->samples)->result();
-
-		$data = array();
-		foreach ($opt as $opt) {
-			$data[] = array("id" => $opt->samples_id, "text" => $opt->samples_nama);
-		}
-
-		return $data;
+		$this->db->where($this->poli . '.poli_id', $id);
+		return $this->db->get($this->poli)->row('poli_deskripsi');
 	}
 }
