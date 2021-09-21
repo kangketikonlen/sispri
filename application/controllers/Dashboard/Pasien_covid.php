@@ -15,7 +15,7 @@ class Pasien_covid extends MY_Controller
 	public function index()
 	{
 		$data['Root'] = "Dashboard";
-		$data['Title'] = "Dashboard";
+		$data['Title'] = "Pasien Covid";
 		$data['Breadcrumb'] = array();
 		$data['Template'] = "templates/private";
 		$data['Components'] = array(
@@ -25,7 +25,46 @@ class Pasien_covid extends MY_Controller
 			'footer' => $data['Template'] . "/components/v_footer",
 			'content' => str_replace("/", "/v_", $this->session->userdata('UrlDash'))
 		);
+		$data['poli'] = $this->m->get_data();
 		$this->load->view('v_main', $data);
+	}
+
+	public function chart_data()
+	{
+		$dataset = array();
+		$poli = $this->m->get_data();
+
+		foreach ($poli as $lists) {
+			$dataset[] = array(
+				'label' => $lists->poli_deskripsi,
+				'backgroundColor' => '#' . $lists->poli_color,
+				'borderColor' => '#' . $lists->poli_color,
+				'pointColor' => '#' . $lists->poli_color,
+				'pointStrokeColor' => '#' . $lists->poli_color,
+				'pointHighlightFill' => '#fff',
+				'pointRadius' => false,
+				'data' => array(rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000)),
+			);
+		}
+
+		echo json_encode($dataset);
+	}
+
+	public function get_table()
+	{
+		$data = array();
+
+		for ($i = 1; $i <= 10; $i++) {
+			$data[] = array(
+				'nomor' => $i,
+				'tanggal' => date("Y-m-d"),
+				'pasien' => "Pasien " . $i,
+				'dokter' => "Dokter " . $i,
+				'poli' => $this->m->get_poli($i)
+			);
+		}
+
+		echo json_encode($data);
 	}
 
 	public function logout()
