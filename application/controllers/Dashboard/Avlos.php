@@ -43,7 +43,7 @@ class Avlos extends MY_Controller
 				'pointStrokeColor' => '#' . $lists->poli_color,
 				'pointHighlightFill' => '#fff',
 				'pointRadius' => false,
-				'data' => array(rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000)),
+				'data' => array(rand(6, 10), rand(6, 10), rand(6, 10), rand(6, 10), rand(6, 10), rand(6, 10), rand(6, 10), rand(6, 10), rand(6, 10), rand(6, 10), rand(6, 10), rand(6, 10)),
 			);
 		}
 

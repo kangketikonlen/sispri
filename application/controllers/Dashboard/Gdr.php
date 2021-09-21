@@ -43,7 +43,7 @@ class Gdr extends MY_Controller
 				'pointStrokeColor' => '#' . $lists->poli_color,
 				'pointHighlightFill' => '#fff',
 				'pointRadius' => false,
-				'data' => array(rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000), rand(0, 1000)),
+				'data' => array(rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50)),
 			);
 		}
 
