@@ -1,0 +1,4 @@
+*
+!.gitignore
+!deploy.yml
+!deploy-devs.yml
