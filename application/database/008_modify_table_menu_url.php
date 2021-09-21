@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Migration_Modify_table_menu extends CI_Migration
+class Migration_Modify_table_menu_url extends CI_Migration
 {
 	protected $table_name = "ak_data_system_menu";
 	protected $prefix = "menu_";

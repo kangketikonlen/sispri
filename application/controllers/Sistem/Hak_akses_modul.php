@@ -38,6 +38,7 @@ class Hak_akses_modul extends MY_Controller
 	public function simpan()
 	{
 		$data = $this->input->post();
+		unset($data['level_show_landing_checked']);
 		$data['updated_by'] = $this->session->userdata('nama');
 		$data['updated_date'] = date('Y-m-d H:i:s');
 

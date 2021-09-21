@@ -10,6 +10,11 @@
 
 	<!-- Right navbar links -->
 	<ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+		<?php if ($this->session->userdata('level_tmp')) : ?>
+			<li class="nav-item">
+				<a class="nav-link" href="<?= base_url('dashboard/landing/reset_akses') ?>" role="button"><i class="fa fa-home"></i> Landing Page</a>
+			</li>
+		<?php endif ?>
 		<li class="nav-item">
 			<a class="nav-link" href="<?= base_url('dashboard/landing/logout') ?>" role="button"><i class="fa fa-sign-out-alt"></i> Keluar</a>
 		</li>

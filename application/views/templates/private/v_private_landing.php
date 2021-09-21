@@ -51,15 +51,16 @@
 									<?php foreach ($this->m->get_level() as $level) : ?>
 										<?php if (array_search($this->session->userdata('id'), explode(",", $level->level_show_landing))) : ?>
 											<div class="col-lg-3 col-6">
-												<div class="small-box" style="background-color: <?= $level->level_background ?>">
-													<div class="inner text-center">
-														<h5 class="pt-4 pb-4" style="text-transform: uppercase;"><?= $level->level_nama ?></h5>
+												<a href="<?= base_url('dashboard/landing/akses/' . $level->level_id . '?url=' . $level->level_url) ?>" data="<?= $level->level_id ?>" class="text-light">
+													<div class="small-box p-3" style="background-color: <?= $level->level_background ?>">
+														<div class="inner text-center">
+															<h5 class="pt-4 pb-4" style="text-transform: uppercase;"><?= $level->level_nama ?></h5>
+														</div>
+														<div class="icon">
+															<i class="fa <?= $level->level_icon ?>"></i>
+														</div>
 													</div>
-													<div class="icon">
-														<i class="fa <?= $level->level_icon ?>"></i>
-													</div>
-													<a href="<?= base_url('dashboard/landing/akses/' . $level->level_id . '?url=' . $level->level_url) ?>" id="setup" data="<?= $level->level_id ?>" class="small-box-footer" style=""> Akses Fitur </a>
-												</div>
+												</a>
 											</div>
 										<?php endif ?>
 									<?php endforeach ?>
