@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<?php $this->load->view('dashboard/components/avlos/c_poli') ?>
+			<?php $this->load->view('dashboard/components/avlos/c_ruangan') ?>
 		</div>
 		<div class="row">
 			<?php $this->load->view('dashboard/components/avlos/c_table') ?>

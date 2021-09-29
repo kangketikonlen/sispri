@@ -1,5 +1,5 @@
 <div class="col-lg-6">
-	<div id="cTable" class="card" style="height:400px">
+	<div id="cTable" class="card" style="height:400px;overflow:scroll">
 		<div class="card-header">
 			<h5 class="card-title">Tabel <?= $Title ?></h5>
 			<div class="card-tools">
@@ -15,10 +15,10 @@
 				<table id="dtTable" class="table table-sm table-striped">
 					<thead>
 						<th class='text-center'>No.</th>
-						<th>Tanggal</th>
-						<th>Pasien</th>
-						<th>Dokter</th>
-						<th>Poli</th>
+						<th>Ruangan</th>
+						<th class="text-right">Kapasitas</th>
+						<th class="text-right">Isi</th>
+						<th class="text-right">BOR</th>
 					</thead>
 					<tbody></tbody>
 				</table>
@@ -39,10 +39,10 @@
 					$("#dtTable tbody").append(
 						"<tr>" +
 						"<td class='text-center'>" + opts[i].nomor + "</td>" +
-						"<td>" + tanggal_indonesian(opts[i].tanggal) + "</td>" +
-						"<td>" + opts[i].pasien + "</td>" +
-						"<td>" + opts[i].dokter + "</td>" +
-						"<td>" + opts[i].poli + "</td>" +
+						"<td>" + opts[i].ruangan + "</td>" +
+						"<td class='text-right'>" + number_format(opts[i].kapasitas) + "</td>" +
+						"<td class='text-right'>" + number_format(opts[i].isi) + "</td>" +
+						"<td class='text-right'>" + opts[i].bor + "</td>" +
 						"</tr>"
 					);
 				}

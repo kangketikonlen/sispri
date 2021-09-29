@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<?php $this->load->view('dashboard/components/toi/c_poli') ?>
+			<?php $this->load->view('dashboard/components/toi/c_ruangan') ?>
 		</div>
 		<div class="row">
 			<?php $this->load->view('dashboard/components/toi/c_table') ?>

@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<?php $this->load->view('dashboard/components/gdr/c_poli') ?>
+			<?php $this->load->view('dashboard/components/gdr/c_ruangan') ?>
 		</div>
 		<div class="row">
 			<?php $this->load->view('dashboard/components/gdr/c_table') ?>

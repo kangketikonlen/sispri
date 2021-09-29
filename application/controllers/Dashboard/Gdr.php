@@ -25,25 +25,25 @@ class Gdr extends MY_Controller
 			'footer' => $data['Template'] . "/components/v_footer",
 			'content' => str_replace("/", "/v_", $this->session->userdata('UrlDash'))
 		);
-		$data['poli'] = $this->m->get_data();
+		$data['ruangan'] = $this->m->get_data();
 		$this->load->view('v_main', $data);
 	}
 
 	public function chart_data()
 	{
 		$dataset = array();
-		$poli = $this->m->get_data();
+		$ruangan = $this->m->get_data();
 
-		foreach ($poli as $lists) {
+		foreach ($ruangan as $lists) {
 			$dataset[] = array(
-				'label' => $lists->poli_deskripsi,
-				'backgroundColor' => '#' . $lists->poli_color,
-				'borderColor' => '#' . $lists->poli_color,
-				'pointColor' => '#' . $lists->poli_color,
-				'pointStrokeColor' => '#' . $lists->poli_color,
+				'label' => $lists->nama_ruang,
+				'backgroundColor' => '#' . $this->m->colors(),
+				'borderColor' => '#' . $this->m->colors(),
+				'pointColor' => '#' . $this->m->colors(),
+				'pointStrokeColor' => '#' . $this->m->colors(),
 				'pointHighlightFill' => '#fff',
 				'pointRadius' => false,
-				'data' => array(rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50), rand(0, 50)),
+				'data' => array(rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100)),
 			);
 		}
 
@@ -53,14 +53,15 @@ class Gdr extends MY_Controller
 	public function get_table()
 	{
 		$data = array();
-
-		for ($i = 1; $i <= 10; $i++) {
+		$ruangan = $this->m->get_data();
+		$i = 1;
+		foreach ($ruangan as $lists) {
 			$data[] = array(
-				'nomor' => $i,
-				'tanggal' => date("Y-m-d"),
-				'pasien' => "Pasien " . $i,
-				'dokter' => "Dokter " . $i,
-				'poli' => $this->m->get_poli($i)
+				'nomor' => $i++,
+				'ruangan' => $lists->nama_ruang,
+				'kapasitas' => $lists->kapasitas,
+				'isi' => $lists->isi,
+				'gdr' => rand(0, 100) . " Pasien"
 			);
 		}
 
