@@ -57,7 +57,7 @@ class Bor extends MY_Dashboard
 		$i = 0;
 		foreach ($ruangan as $ruangan) {
 			$labels[] = $ruangan->kelas;
-			$backgroundColor[] = ($i++ % 2 == 0) ? '#1CC5DC' : '#867AE9';
+			$backgroundColor[] = ($i++ % 2 == 0) ? '#39A388' : '#6ECB63';
 			$data[] = $this->hitung_bor($ruangan->kapasitas);
 		}
 

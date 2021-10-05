@@ -1,6 +1,14 @@
 <div class="row">
 	<div class="col-12">
 		<div class="row justify-content-center">
+			<div class="col-lg-6">
+				<div class="callout callout-info">
+					<h5>Halaman Indikator <strong><?= strtoupper($indikator) ?></strong> Ruang <strong><?= $ruangan ?></strong></h5>
+					<p>Anda telah memilih ruangan <strong><?= $ruangan ?></strong> dengan indikator <strong><?= strtoupper($indikator) ?></strong>. Silahkan ubah atau filter data periode menggunakan form di bawah ini, atau klik kembali ke pilih ruang atau indikator pada navbar di atas.</p>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-center">
 			<div class="col-lg-4">
 				<div class="form-group">
 					<input type="date" name="tanggal_awal" id="tanggal_awal" class="form-control form-control-sm" autocomplete="off" value="<?= date('Y-m-01') ?>">

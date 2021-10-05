@@ -52,7 +52,7 @@ class Toi extends MY_Dashboard
 		foreach ($ruangan as $ruangan) {
 			$jumlah_pasien = $this->m->get_jumlah_pasien($ruangan->nama_ruang, $ruangan->kelas);
 			$labels[] = $ruangan->kelas;
-			$backgroundColor[] = ($i++ % 2 == 0) ? '#1CC5DC' : '#867AE9';
+			$backgroundColor[] = ($i++ % 2 == 0) ? '#39A388' : '#6ECB63';
 			$data[] = $this->hitung($ruangan->kapasitas, $jumlah_pasien);
 		}
 

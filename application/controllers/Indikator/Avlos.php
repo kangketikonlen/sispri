@@ -21,7 +21,7 @@ class Avlos extends MY_Dashboard
 
 	private function hitung($lama_dirawat, $jumlah_pasien)
 	{
-		return avlos($lama_dirawat, $jumlah_pasien);
+		return @avlos($lama_dirawat, $jumlah_pasien);
 	}
 
 	public function get_table()
@@ -53,7 +53,7 @@ class Avlos extends MY_Dashboard
 			$lama_dirawat = $this->m->get_lama_dirawat($ruangan->nama_ruang, $ruangan->kelas);
 			$jumlah_pasien = $this->m->get_jumlah_pasien($ruangan->nama_ruang, $ruangan->kelas);
 			$labels[] = $ruangan->kelas;
-			$backgroundColor[] = ($i++ % 2 == 0) ? '#1CC5DC' : '#867AE9';
+			$backgroundColor[] = ($i++ % 2 == 0) ? '#39A388' : '#6ECB63';
 			$data[] = $this->hitung($lama_dirawat, $jumlah_pasien);
 		}
 
