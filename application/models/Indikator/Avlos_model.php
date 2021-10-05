@@ -1,25 +1,45 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 class Avlos_model extends CI_Model
 {
-	protected $poli = "ak_data_master_poli";
-	// 
-	protected $sdw_ruangan = "daftar_ruangan";
+	protected $ruangan = "daftar_ruangan";
+	protected $ri = "data_pendaftaran_ri";
 
-	public function get_data()
+	public function get_ruangan()
 	{
-		$sidawangi = $this->load->database('sidawangi', TRUE);
-		return $sidawangi->get($this->sdw_ruangan)->result();
+		$sidawangi = $this->load->database('sdw', TRUE);
+		$sidawangi->where($this->ruangan . '.nama_ruang', $this->input->get('ruangan'));
+		$sidawangi->order_by('kelas');
+		return $sidawangi->get($this->ruangan)->result();
 	}
 
-	public function get_poli($id)
+	public function get_lama_dirawat($ruang, $kelas)
 	{
-		$this->db->where($this->poli . '.poli_id', $id);
-		return $this->db->get($this->poli)->row('poli_deskripsi');
+		$tgl_awal = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_awal') . '- 1 day'));
+		$tgl_akhir = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_akhir') . '+ 1 day'));
+		// 
+		$sidawangi = $this->load->database('sdw', TRUE);
+		$sidawangi->select('SUM(DATEDIFF(date_out,date_in)) as lama_dirawat');
+		$sidawangi->where($this->ri . '.ruang', $ruang);
+		$sidawangi->where($this->ri . '.kelas', $kelas);
+		$sidawangi->where($this->ri . '.date_in>=', $tgl_awal);
+		$sidawangi->where($this->ri . '.date_in<=', $tgl_akhir);
+		$sidawangi->order_by('kelas');
+		return $sidawangi->get($this->ri)->row('lama_dirawat');
 	}
 
-	public function colors()
+	public function get_jumlah_pasien($ruang, $kelas)
 	{
-		$colors = array("EC9CD3", "FF7878", "6ECB63", "664E88", "63B4B8", "3DB2FF");
-		return $colors[array_rand($colors)];
+		$tgl_awal = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_awal') . '- 1 day'));
+		$tgl_akhir = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_akhir') . '+ 1 day'));
+		// 
+		$sidawangi = $this->load->database('sdw', TRUE);
+		$sidawangi->select('count(id) as pasien_out');
+		$sidawangi->where($this->ri . '.ruang', $ruang);
+		$sidawangi->where($this->ri . '.kelas', $kelas);
+		$sidawangi->where($this->ri . '.status', 'PULANG');
+		$sidawangi->where($this->ri . '.date_in>=', $tgl_awal);
+		$sidawangi->where($this->ri . '.date_in<=', $tgl_akhir);
+		$sidawangi->order_by('kelas');
+		return $sidawangi->get($this->ri)->row('pasien_out');
 	}
 }

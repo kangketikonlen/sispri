@@ -18,7 +18,7 @@ function bor($tgl_awal, $tgl_akhir, $total_bed)
 
 function avlos($lama_dirawat, $jumlah_pasien_keluar)
 {
-	return $lama_dirawat / $jumlah_pasien_keluar;
+	return round($lama_dirawat / $jumlah_pasien_keluar);
 }
 
 function toi($tgl_awal, $tgl_akhir, $jumlah_bed, $jumlah_pasien_keluar)
