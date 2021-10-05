@@ -13,6 +13,11 @@
 		<li class="nav-item">
 			<a id="updateDB" class="nav-link" href="#" role="button"><i class="fa fa-database"></i> Update</a>
 		</li>
+		<?php if ($this->session->userdata('level_tmp')) : ?>
+			<li class="nav-item">
+				<a class="nav-link" href="<?= base_url('dashboard/landing/reset_akses') ?>" role="button"><i class="fa fa-home"></i> Landing Page</a>
+			</li>
+		<?php endif ?>
 		<li class="nav-item">
 			<a class="nav-link" href="<?= base_url('dashboard/landing/logout') ?>" role="button"><i class="fa fa-sign-out-alt"></i> Keluar</a>
 		</li>
