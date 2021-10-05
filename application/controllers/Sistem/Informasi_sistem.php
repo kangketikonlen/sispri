@@ -4,13 +4,7 @@ class Informasi_sistem extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$isLogin = $this->session->userdata('LoggedIn');
-		if (!$isLogin) {
-			$this->session->sess_destroy();
-			redirect('portal');
-		} else {
-			$this->load->model('Sistem/Informasi_sistem_model', 'm');
-		}
+		$this->load->model('Sistem/Informasi_sistem_model', 'm');
 	}
 
 	public function index()
@@ -46,22 +40,13 @@ class Informasi_sistem extends MY_Controller
 			$data['created_date'] = date('Y-m-d H:i:s');
 			$this->m->simpan($data);
 
-			$pesan = array(
-				'warning' => 'Berhasil!',
-				'kode' => 'success',
-				'pesan' => 'Data berhasil di simpan'
-			);
+			echo save_success();
 		} else {
 			$data['updated_by'] = $this->session->userdata('nama');
 			$data['updated_date'] = date('Y-m-d H:i:s');
 			$this->m->edit($data);
 
-			$pesan = array(
-				'warning' => 'Berhasil!',
-				'kode' => 'success',
-				'pesan' => 'Data berhasil di perbarui'
-			);
+			echo update_success();
 		}
-		echo json_encode($pesan);
 	}
 }

@@ -35,10 +35,14 @@ class Migration_Create_table_menu extends CI_Migration
 			$this->prefix . 'url' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 128,
+				'default' => '#',
+				'null' => FALSE
 			),
 			$this->prefix . 'roles' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 128,
+				'default' => '0,1',
+				'null' => FALSE
 			),
 			'created_by' => array(
 				'type' => 'VARCHAR',
@@ -66,7 +70,7 @@ class Migration_Create_table_menu extends CI_Migration
 	private function seed_sample()
 	{
 		$data = array(
-			'menu_urutan' => 0,
+			'menu_urutan' => 1,
 			'menu_icon' => 'fa-server',
 			'menu_nama' => 'Sistem',
 			'menu_dropdown' => 'Dropdown',

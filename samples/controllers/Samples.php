@@ -4,13 +4,7 @@ class Samples_controller extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$isLogin = $this->session->userdata('LoggedIn');
-		if (!$isLogin) {
-			$this->session->sess_destroy();
-			redirect('portal');
-		} else {
-			$this->load->model('Model_folder/Samples_model', 'm');
-		}
+		$this->load->model('Model_folder/Samples_model', 'm');
 	}
 
 	public function index()
@@ -38,30 +32,20 @@ class Samples_controller extends MY_Controller
 
 	public function simpan()
 	{
-		// $data = $this->input->post();
+		$data = $this->input->post();
+		if (empty($data['samples_id'])) {
+			$data['created_by'] = $this->session->userdata('nama');
+			$data['created_date'] = date('Y-m-d H:i:s');
+			$this->m->simpan($data);
 
-		// if ($this->input->post('samples_id') == "") {
-		// 	$data['created_by'] = $this->session->userdata('nama');
-		// 	$data['created_date'] = date('Y-m-d H:i:s');
-		// 	$this->m->simpan($data);
+			echo save_success();
+		} else {
+			$data['updated_by'] = $this->session->userdata('nama');
+			$data['updated_date'] = date('Y-m-d H:i:s');
+			$this->m->edit($data);
 
-		// 	$pesan = array(
-		// 		'warning' => 'Berhasil!',
-		// 		'kode' => 'success',
-		// 		'pesan' => 'Data berhasil di simpan'
-		// 	);
-		// } else {
-		// 	$data['updated_by'] = $this->session->userdata('nama');
-		// 	$data['updated_date'] = date('Y-m-d H:i:s');
-		// 	$this->m->edit($data);
-
-		// 	$pesan = array(
-		// 		'warning' => 'Berhasil!',
-		// 		'kode' => 'success',
-		// 		'pesan' => 'Data berhasil di perbarui'
-		// 	);
-		// }
-		// echo json_encode($pesan);
+			echo update_success();
+		}
 	}
 
 	public function get_data()
@@ -78,12 +62,7 @@ class Samples_controller extends MY_Controller
 			'updated_date' => date('Y-m-d H:i:s')
 		);
 		$this->m->hapus($data);
-		$pesan = array(
-			'warning' => 'Berhasil!',
-			'kode' => 'success',
-			'pesan' => 'Data berhasil di hapus!'
-		);
-		echo json_encode($pesan);
+		echo delete_success();
 	}
 
 	public function options()

@@ -9,8 +9,8 @@ class Submenu_model extends CI_Model
 		$this->datatables->select('submenu_id, submenu_urutan, menu_nama, submenu_root, submenu_nama, submenu_url');
 		$this->datatables->join($this->menu, $this->menu . '.menu_id=' . $this->submenu . '.menu_id');
 		$this->datatables->from($this->submenu);
-		if ($this->input->post('menu_id') != "") {
-			$this->datatables->where($this->submenu . '.menu_id', $this->input->post('menu_id'));
+		if ($this->input->get('menu_id') != "") {
+			$this->datatables->where($this->submenu . '.menu_id', $this->input->get('menu_id'));
 		}
 		$this->datatables->where($this->submenu . '.menu_id>', 0);
 		$this->datatables->where($this->submenu . '.deleted', FALSE);

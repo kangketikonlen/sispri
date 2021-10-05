@@ -42,7 +42,7 @@ class Migration_Create_table_samples extends CI_Migration
 			'deleted' => array(
 				'type' => 'TINYINT',
 				'constraint' => 1,
-				'default' => 1
+				'default' => 0
 			),
 		);
 		// Add field from above variables

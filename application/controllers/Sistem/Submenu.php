@@ -4,13 +4,7 @@ class Submenu extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$isLogin = $this->session->userdata('LoggedIn');
-		if (!$isLogin) {
-			$this->session->sess_destroy();
-			redirect('portal');
-		} else {
-			$this->load->model('Sistem/Submenu_model', 'm');
-		}
+		$this->load->model('Sistem/Submenu_model', 'm');
 	}
 
 	public function index()
@@ -61,11 +55,7 @@ class Submenu extends MY_Controller
 			$this->create_view($submenu);
 			$this->create_js($submenu);
 
-			$pesan = array(
-				'warning' => 'Berhasil!',
-				'kode' => 'success',
-				'pesan' => 'Data berhasil di simpan'
-			);
+			echo save_success();
 		} else {
 			$result = $this->m->get_data();
 			$data['updated_by'] = $this->session->userdata('nama');
@@ -77,13 +67,8 @@ class Submenu extends MY_Controller
 				$this->m->reorder();
 			}
 
-			$pesan = array(
-				'warning' => 'Berhasil!',
-				'kode' => 'success',
-				'pesan' => 'Data berhasil di perbarui'
-			);
+			echo update_success();
 		}
-		echo json_encode($pesan);
 	}
 
 	public function create_controller($data, $submenu)
@@ -157,12 +142,7 @@ class Submenu extends MY_Controller
 			'updated_date' => date('Y-m-d H:i:s')
 		);
 		$this->m->hapus($data);
-		$pesan = array(
-			'warning' => 'Berhasil!',
-			'kode' => 'success',
-			'pesan' => 'Data berhasil di hapus!'
-		);
-		echo json_encode($pesan);
+		echo delete_success();
 	}
 
 	public function options()

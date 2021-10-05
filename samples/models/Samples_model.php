@@ -5,7 +5,7 @@ class Samples_model extends CI_Model
 
 	public function get_list_data()
 	{
-		$this->datatables->select('samples_id, samples_nama, samples_deskripsi');
+		$this->datatables->select('samples_id');
 		$this->datatables->from($this->samples);
 		$this->datatables->where($this->samples . '.deleted', FALSE);
 		$this->datatables->add_column('view', "<button id='edit' class='m-1 btn btn-sm btn-primary' data='$1'><i class='fa fa-pencil-alt'></i></button> <button id='hapus' class='m-1 btn btn-sm btn-danger' data='$1'><i class='fa fa-trash'></i></button>", "samples_id");

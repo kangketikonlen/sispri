@@ -7,7 +7,7 @@
 					<div class="col-lg-12">
 						<div class="form-group">
 							<label for="migration_name">Nama File</label>
-							<input type="text" name="migration_name" id="migration_name" class="form-control form-control-sm" placeholder="Masukkan nama file..." autocomplete="off" required="true">
+							<input type="text" name="migration_name" id="migration_name" class="form-control form-control-sm" placeholder="Masukkan nama file..." autocomplete="off" required="true" autofocus="true">
 						</div>
 					</div>
 					<div class="col-lg-12">

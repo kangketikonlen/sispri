@@ -4,13 +4,7 @@ class Daftar_user extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$isLogin = $this->session->userdata('LoggedIn');
-		if (!$isLogin) {
-			$this->session->sess_destroy();
-			redirect('portal');
-		} else {
-			$this->load->model('Sistem/Daftar_user_model', 'm');
-		}
+		$this->load->model('Sistem/Daftar_user_model', 'm');
 	}
 
 	public function index()
@@ -48,11 +42,7 @@ class Daftar_user extends MY_Controller
 
 			$this->m->simpan($data);
 
-			$pesan = array(
-				'warning' => 'Berhasil!',
-				'kode' => 'success',
-				'pesan' => 'Data berhasil di simpan'
-			);
+			echo save_success();
 		} else {
 			if ($this->input->post('user_pass_baru') != "") {
 				$data['user_pass'] = password_hash($data['user_pass_baru'], PASSWORD_BCRYPT);
@@ -69,13 +59,8 @@ class Daftar_user extends MY_Controller
 
 			$this->m->edit($data);
 
-			$pesan = array(
-				'warning' => 'Berhasil!',
-				'kode' => 'success',
-				'pesan' => 'Data berhasil di perbarui'
-			);
+			echo update_success();
 		}
-		echo json_encode($pesan);
 	}
 
 	public function get_data()

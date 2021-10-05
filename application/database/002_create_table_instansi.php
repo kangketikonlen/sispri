@@ -17,10 +17,12 @@ class Migration_Create_table_instansi extends CI_Migration
 			$this->prefix . 'logo' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 128,
+				'default' => '/assets/images/logo/default.png'
 			),
 			$this->prefix . 'background' => array(
 				'type' => 'VARCHAR',
 				'constraint' => 128,
+				'default' => '/assets/images/background/background.jpg'
 			),
 			$this->prefix . 'nama' => array(
 				'type' => 'VARCHAR',

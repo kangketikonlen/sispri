@@ -4,13 +4,7 @@ class Hak_akses_menu extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$isLogin = $this->session->userdata('LoggedIn');
-		if (!$isLogin) {
-			$this->session->sess_destroy();
-			redirect('portal');
-		} else {
-			$this->load->model('Sistem/Hak_akses_menu_model', 'm');
-		}
+		$this->load->model('Sistem/Hak_akses_menu_model', 'm');
 	}
 
 	public function index()
@@ -45,13 +39,7 @@ class Hak_akses_menu extends MY_Controller
 
 		$this->m->edit($data);
 
-		$pesan = array(
-			'warning' => 'Berhasil!',
-			'kode' => 'success',
-			'pesan' => 'Data berhasil di perbarui'
-		);
-
-		echo json_encode($pesan);
+		echo update_success();
 	}
 
 	public function simpan_menu()
@@ -63,13 +51,7 @@ class Hak_akses_menu extends MY_Controller
 
 		$this->m->edit_menu($data);
 
-		$pesan = array(
-			'warning' => 'Berhasil!',
-			'kode' => 'success',
-			'pesan' => 'Data berhasil di perbarui'
-		);
-
-		echo json_encode($pesan);
+		echo save_success();
 	}
 
 	public function get_data()
@@ -92,12 +74,7 @@ class Hak_akses_menu extends MY_Controller
 			'updated_date' => date('Y-m-d H:i:s')
 		);
 		$this->m->hapus($data);
-		$pesan = array(
-			'warning' => 'Berhasil!',
-			'kode' => 'success',
-			'pesan' => 'Data berhasil di hapus!'
-		);
-		echo json_encode($pesan);
+		echo delete_success();
 	}
 
 	public function options()

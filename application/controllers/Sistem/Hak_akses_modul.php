@@ -4,12 +4,7 @@ class Hak_akses_modul extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$isLogin = $this->session->userdata('LoggedIn');
-		if (!$isLogin) {
-			redirect('portal');
-		} else {
-			$this->load->model('Sistem/Hak_akses_modul_model', 'm');
-		}
+		$this->load->model('Sistem/Hak_akses_modul_model', 'm');
 	}
 
 	public function index()
@@ -38,18 +33,12 @@ class Hak_akses_modul extends MY_Controller
 	public function simpan()
 	{
 		$data = $this->input->post();
-		unset($data['level_show_landing_checked']);
 		$data['updated_by'] = $this->session->userdata('nama');
 		$data['updated_date'] = date('Y-m-d H:i:s');
 
 		$this->m->edit($data);
 
-		$pesan = array(
-			'warning' => 'Berhasil!',
-			'kode' => 'success',
-			'pesan' => 'Data berhasil di perbarui'
-		);
-		echo json_encode($pesan);
+		echo save_success();
 	}
 
 	public function get_data()

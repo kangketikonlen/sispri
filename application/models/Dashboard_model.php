@@ -20,6 +20,12 @@ class Dashboard_model extends CI_Model
 		return $this->db->get($this->submenu)->result();
 	}
 
+	public function get_single_submenu($slug)
+	{
+		$this->db->where($this->submenu . '.submenu_url', $slug);
+		return $this->db->get($this->submenu)->row();
+	}
+
 	public function get_hak_akses($sub)
 	{
 		$this->db->where($this->hak_akses . '.submenu_id', $sub);
