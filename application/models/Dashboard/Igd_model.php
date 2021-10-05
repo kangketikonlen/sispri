@@ -1,50 +1,26 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 class Igd_model extends CI_Model
 {
-	protected $samples = "ak_data_system_samples";
+	protected $rd = "data_pendaftaran_rd";
 
-	public function get_list_data()
+	public function get_jumlah_pasien($query, $tgl_awal, $tgl_akhir)
 	{
-		$this->datatables->select('samples_id');
-		$this->datatables->from($this->samples);
-		$this->datatables->where($this->samples . '.deleted', FALSE);
-		$this->datatables->add_column('view', "<button id='edit' class='m-1 btn btn-sm btn-primary' data='$1'><i class='fa fa-pencil-alt'></i></button> <button id='hapus' class='m-1 btn btn-sm btn-danger' data='$1'><i class='fa fa-trash'></i></button>", "samples_id");
-		return $this->datatables->generate();
-	}
-
-	public function simpan($data)
-	{
-		return $this->db->insert($this->samples, $data);
-	}
-
-	public function get_data()
-	{
-		$this->db->where($this->samples . '.samples_id', $this->input->post('samples_id'));
-		return $this->db->get($this->samples)->row();
-	}
-
-	public function edit($data)
-	{
-		$this->db->where($this->samples . '.samples_id', $this->input->post('samples_id'));
-		return $this->db->update($this->samples, $data);
-	}
-
-	public function hapus($data)
-	{
-		$this->db->where($this->samples . '.samples_id', $this->input->post('samples_id'));
-		return $this->db->update($this->samples, $data);
-	}
-
-	public function options()
-	{
-		$this->db->where($this->samples . '.deleted', FALSE);
-		$opt = $this->db->get($this->samples)->result();
-
-		$data = array();
-		foreach ($opt as $opt) {
-			$data[] = array("id" => $opt->samples_id, "text" => $opt->samples_nama);
+		$sidawangi = $this->load->database('sdw', TRUE);
+		$sidawangi->where($this->rd . '.date_in>=', $tgl_awal);
+		$sidawangi->where($this->rd . '.date_in<=', $tgl_akhir);
+		if (!empty($query)) {
+			$sidawangi->where($this->rd . '.rujukan', 'YA');
 		}
+		return $sidawangi->get($this->rd)->num_rows();
+	}
 
-		return $data;
+	public function get_table_data($tgl_awal, $tgl_akhir)
+	{
+		$sidawangi = $this->load->database('sdw', TRUE);
+		$sidawangi->select('date_in, diagnosa, count(id) as pasien');
+		$sidawangi->where($this->rd . '.date_in>=', $tgl_awal);
+		$sidawangi->where($this->rd . '.date_in<=', $tgl_akhir);
+		$sidawangi->group_by('diagnosa');
+		return $sidawangi->get($this->rd)->result_array();
 	}
 }

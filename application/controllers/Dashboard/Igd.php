@@ -20,7 +20,55 @@ class Igd extends MY_Dashboard
 			'footer' => $data['Template'] . "/components/v_footer",
 			'content' => str_replace("/", "/v_", $this->session->userdata('UrlDash'))
 		);
+		$data['parameter'] = $this->get_parameter();
 		$this->load->view('v_main', $data);
+	}
+
+	public function get_parameter()
+	{
+		$data = array(
+			array(
+				'kode' => 'jpasien',
+				'background' => '#00EAD3',
+				'icon' => 'fa-users',
+				'deskripsi' => 'Jumlah Pasien',
+				'query' => 0
+			),
+			array(
+				'kode' => 'jrujuk',
+				'background' => '#FF449F',
+				'icon' => 'fa-ambulance',
+				'deskripsi' => 'Jumlah Pasien Rujuk',
+				'query' => 1
+			)
+		);
+		return $data;
+	}
+
+	public function jumlah_pasien()
+	{
+		$tgl_awal = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_awal') . '- 1 day'));
+		$tgl_akhir = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_akhir') . '+ 1 day'));
+		// 
+		$results = array();
+		$parameters = $this->get_parameter();
+		foreach ($parameters as $param) {
+			$results[$param['kode']] = $this->m->get_jumlah_pasien($param['query'], $tgl_awal, $tgl_akhir);
+		}
+		echo json_encode($results);
+	}
+
+	public function get_table()
+	{
+		$tgl_awal = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_awal') . '- 1 day'));
+		$tgl_akhir = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_akhir') . '+ 1 day'));
+		// 
+		$parameters = $this->get_parameter();
+		$data = array();
+		foreach ($parameters as $param) {
+			$data[$param['deskripsi']] = $this->m->get_table_data($tgl_awal, $tgl_akhir);
+		}
+		echo json_encode($data);
 	}
 
 	public function logout()
