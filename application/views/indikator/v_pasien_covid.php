@@ -11,7 +11,7 @@
 		<div class="row justify-content-center">
 			<div class="col-lg-4">
 				<div class="form-group">
-					<input type="date" name="tanggal_awal" id="tanggal_awal" class="form-control form-control-sm" autocomplete="off" value="<?= date('2017-m-01') ?>">
+					<input type="date" name="tanggal_awal" id="tanggal_awal" class="form-control form-control-sm" autocomplete="off" value="<?= date('Y-m-01') ?>">
 				</div>
 			</div>
 			<div class="col-lg-4">

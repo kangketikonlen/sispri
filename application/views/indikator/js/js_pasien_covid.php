@@ -81,7 +81,7 @@
 						$("#dtTable tbody").append(
 							"<tr>" +
 							"<td>" + dt[i].dokter_rs + "</td>" +
-							"<td>" + dt[i].kelas + "</td>" +
+							"<td>Kelas " + dt[i].kelas + "</td>" +
 							"<td class='text-right'>" + number_format(dt[i].pasien) + " pasien</td>" +
 							"</tr>"
 						);
