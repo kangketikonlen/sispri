@@ -1,76 +1,67 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-class Toi extends MY_Controller
+class Toi extends MY_Dashboard
 {
 	public function __construct()
 	{
 		parent::__construct();
-		$isLogin = $this->session->userdata('LoggedIn');
-		if (!$isLogin) {
-			redirect('portal');
-		} else {
-			$this->load->model('Dashboard/Toi_model', 'm');
-		}
+		$this->load->model('Indikator/Toi_model', 'm');
 	}
 
-	public function index()
+	public function get_jumlah()
 	{
-		$data['Root'] = "Dashboard";
-		$data['Title'] = "Turn Over Interval";
-		$data['Breadcrumb'] = array();
-		$data['Template'] = "templates/private";
-		$data['Components'] = array(
-			'main' => "/v_private_topbar",
-			'header' => $data['Template'] . "/components/v_header",
-			'navbar' => $data['Template'] . "/components/v_navbar_landing",
-			'footer' => $data['Template'] . "/components/v_footer",
-			'content' => str_replace("/", "/v_", $this->session->userdata('UrlDash'))
-		);
-		$data['ruangan'] = $this->m->get_data();
-		$this->load->view('v_main', $data);
+		$results = array();
+		$ruangan = $this->m->get_ruangan();
+		foreach ($ruangan as $ruangan) {
+			$jumlah_pasien = $this->m->get_jumlah_pasien($ruangan->nama_ruang, $ruangan->kelas);
+			$results[$ruangan->id] = $this->hitung($ruangan->kapasitas, $jumlah_pasien);
+		}
+		echo json_encode($results);
 	}
 
-	public function chart_data()
+	private function hitung($jumlah_bed, $jumlah_pasien_keluar)
 	{
-		$dataset = array();
-		$ruangan = $this->m->get_data();
-
-		foreach ($ruangan as $lists) {
-			$dataset[] = array(
-				'label' => $lists->nama_ruang,
-				'backgroundColor' => '#' . $this->m->colors(),
-				'borderColor' => '#' . $this->m->colors(),
-				'pointColor' => '#' . $this->m->colors(),
-				'pointStrokeColor' => '#' . $this->m->colors(),
-				'pointHighlightFill' => '#fff',
-				'pointRadius' => false,
-				'data' => array(rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100), rand(0, 100)),
-			);
-		}
-
-		echo json_encode($dataset);
+		$tgl_awal = $this->input->get('tanggal_awal');
+		$tgl_akhir = $this->input->get('tanggal_akhir');
+		return toi($tgl_awal, $tgl_akhir, $jumlah_bed, $jumlah_pasien_keluar);
 	}
 
 	public function get_table()
 	{
 		$data = array();
-		$ruangan = $this->m->get_data();
-		$i = 1;
-		foreach ($ruangan as $lists) {
-			$data[] = array(
-				'nomor' => $i++,
-				'ruangan' => $lists->nama_ruang,
-				'kapasitas' => $lists->kapasitas,
-				'isi' => $lists->isi,
-				'toi' => rand(0, 100) . "%"
+		$ruangan = $this->m->get_ruangan();
+		foreach ($ruangan as $ruangan) {
+			$jumlah_pasien = $this->m->get_jumlah_pasien($ruangan->nama_ruang, $ruangan->kelas);
+			$data[$ruangan->kelas] = array(
+				array(
+					'kelas' => $ruangan->kelas,
+					'kapasitas' => $ruangan->kapasitas,
+					'pasien' => $jumlah_pasien,
+				)
 			);
 		}
-
 		echo json_encode($data);
 	}
 
-	public function logout()
+	public function chart_data()
 	{
-		$this->session->sess_destroy();
-		redirect('portal');
+		$labels = array();
+		$backgroundColor = array();
+		$data = array();
+		$ruangan = $this->m->get_ruangan();
+		$i = 0;
+		foreach ($ruangan as $ruangan) {
+			$jumlah_pasien = $this->m->get_jumlah_pasien($ruangan->nama_ruang, $ruangan->kelas);
+			$labels[] = $ruangan->kelas;
+			$backgroundColor[] = ($i++ % 2 == 0) ? '#1CC5DC' : '#867AE9';
+			$data[] = $this->hitung($ruangan->kapasitas, $jumlah_pasien);
+		}
+
+		$data = array(
+			'labels' => $labels,
+			'backgroundColor' => $backgroundColor,
+			'data' => $data
+		);
+
+		echo json_encode($data);
 	}
 }
