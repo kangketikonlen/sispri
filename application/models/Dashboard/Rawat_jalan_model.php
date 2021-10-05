@@ -1,50 +1,50 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 class Rawat_jalan_model extends CI_Model
 {
-	protected $samples = "ak_data_system_samples";
-
-	public function get_list_data()
-	{
-		$this->datatables->select('samples_id');
-		$this->datatables->from($this->samples);
-		$this->datatables->where($this->samples . '.deleted', FALSE);
-		$this->datatables->add_column('view', "<button id='edit' class='m-1 btn btn-sm btn-primary' data='$1'><i class='fa fa-pencil-alt'></i></button> <button id='hapus' class='m-1 btn btn-sm btn-danger' data='$1'><i class='fa fa-trash'></i></button>", "samples_id");
-		return $this->datatables->generate();
-	}
-
-	public function simpan($data)
-	{
-		return $this->db->insert($this->samples, $data);
-	}
+	protected $poli = "ak_data_master_poliklinik";
+	// 
+	protected $rj = "data_pendaftaran_rj";
 
 	public function get_data()
 	{
-		$this->db->where($this->samples . '.samples_id', $this->input->post('samples_id'));
-		return $this->db->get($this->samples)->row();
+		$this->db->where($this->poli . '.deleted', false);
+		return $this->db->get($this->poli)->result();
 	}
 
-	public function edit($data)
+	public function get_poli($id)
 	{
-		$this->db->where($this->samples . '.samples_id', $this->input->post('samples_id'));
-		return $this->db->update($this->samples, $data);
+		$this->db->where($this->poli . '.poliklinik_id', $id);
+		return $this->db->get($this->poli)->row('poliklinik_deskripsi');
 	}
 
-	public function hapus($data)
+	public function get_jumlah_pasien($poli, $tgl_awal, $tgl_akhir)
 	{
-		$this->db->where($this->samples . '.samples_id', $this->input->post('samples_id'));
-		return $this->db->update($this->samples, $data);
-	}
-
-	public function options()
-	{
-		$this->db->where($this->samples . '.deleted', FALSE);
-		$opt = $this->db->get($this->samples)->result();
-
-		$data = array();
-		foreach ($opt as $opt) {
-			$data[] = array("id" => $opt->samples_id, "text" => $opt->samples_nama);
+		$sidawangi = $this->load->database('sdw', TRUE);
+		$sidawangi->where($this->rj . '.date>=', $tgl_awal);
+		$sidawangi->where($this->rj . '.date<=', $tgl_akhir);
+		if (!empty($poli)) {
+			$sidawangi->like($this->rj . '.poliklinik', $poli, "both");
 		}
+		return $sidawangi->get($this->rj)->num_rows();
+	}
 
-		return $data;
+	public function search_value($month, $poli, $tahun_awal, $tahun_akhir, $bulan_awal, $bulan_akhir)
+	{
+		$sidawangi = $this->load->database('sdw', TRUE);
+		$sidawangi->where('YEAR(Date)>=', $tahun_awal);
+		$sidawangi->where('YEAR(Date)<=', $tahun_akhir);
+		$sidawangi->like($this->rj . '.poliklinik', $poli, "both");
+		return $sidawangi->get($this->rj)->num_rows();
+	}
+
+	public function get_table_data($poli, $tgl_awal, $tgl_akhir)
+	{
+		$sidawangi = $this->load->database('sdw', TRUE);
+		$sidawangi->select('date, dokter, count(id) as pasien, poliklinik');
+		$sidawangi->where($this->rj . '.date>=', $tgl_awal);
+		$sidawangi->where($this->rj . '.date<=', $tgl_akhir);
+		$sidawangi->like($this->rj . '.poliklinik', $poli, "both");
+		$sidawangi->group_by('dokter');
+		return $sidawangi->get($this->rj)->result_array();
 	}
 }

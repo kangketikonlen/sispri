@@ -1,60 +1,96 @@
+<script src="<?= base_url('vendor/almasaeed2010/adminlte/plugins/chart.js/Chart.min.js') ?>"></script>
 <script>
 	$(document).ready(function() {
-		// var levelMenu = $('#level_id');
-		// var optUrl = "<?= base_url('samples/samples/options/') ?>";
-
-		// levelMenu.select2({
-		// 	theme: 'bootstrap4',
-		// 	placeholder: '-- FILTER MENU UTAMA --',
-		// 	allowClear: true
-		// });
-
-		// fetchOption(optUrl, levelMenu);
-
-		// var tableUrl = "<?= base_url('samples/samples/list_data/') ?>";
-
-		// var listsColumn = [{
-		// 		render: function(data, type, row, meta) {
-		// 			return meta.row + meta.settings._iDisplayStart + 1 + ".";
-		// 		}
-		// 	},
-		// 	{
-		// 		"data": "1"
-		// 	},
-		// 	{
-		// 		"data": "2"
-		// 	},
-		// 	{
-		// 		"data": "3",
-		// 		"searchable": false
-		// 	}
-		// ];
-
-		// dtTable(tableUrl, listsColumn);
-
-		$('#Frm').submit(function(e) {
-			e.preventDefault();
-			var dataUrl = "<?= base_url('samples/samples/simpan/') ?>";
-			var dataReq = new FormData(this);
-			updateRequest(dataUrl, dataReq);
-		});
-
-		$(document).on('click', '#edit', function() {
-			$("#frmData").modal('show');
-			var dataUrl = "<?= base_url('samples/samples/get_data/') ?>";
-			var reqData = {
-				samples_id: $(this).attr("data")
-			};
-			requestEdit(dataUrl, reqData);
-		});
-
-		$(document).on('click', '#hapus', function() {
-			e.preventDefault();
-			var dataUrl = "<?= base_url('samples/samples/hapus/') ?>";
-			var dataReq = {
-				samples_id: $(this).attr("data")
-			};
-			updateRequest(dataUrl, dataReq);
+		var url = "<?= base_url('dashboard/rawat_jalan/jumlah_pasien?') ?>";
+		var urlChart = "<?= base_url('dashboard/rawat_jalan/chart_data?') ?>";
+		var urlTable = "<?= base_url('dashboard/rawat_jalan/get_table?') ?>";
+		var tgl_awal = $("#tanggal_awal").val();
+		var tgl_akhir = $("#tanggal_akhir").val();
+		// 
+		getData(url, tgl_awal, tgl_akhir);
+		get_chart(urlChart, tgl_awal, tgl_akhir);
+		get_table(urlTable, tgl_awal, tgl_akhir);
+		// 
+		$("#filter").click(function() {
+			tgl_awal = $("#tanggal_awal").val();
+			tgl_akhir = $("#tanggal_akhir").val();
+			getData(url, tgl_awal, tgl_akhir);
+			get_chart(urlChart, tgl_awal, tgl_akhir);
+			get_table(urlTable, tgl_awal, tgl_akhir);
 		});
 	});
+
+	function getData(url, tgl_awal, tgl_akhir) {
+		var request = "tanggal_awal=" + tgl_awal + "&tanggal_akhir=" + tgl_akhir;
+		requestGet(url + request).then(function(results) {
+			var data = JSON.parse(results);
+			$.each(data, function(i, d) {
+				$("#" + i).text(number_format(d));
+			});
+		});
+	}
+
+	function get_chart(url, tgl_awal, tgl_akhir) {
+		var request = "tanggal_awal=" + tgl_awal + "&tanggal_akhir=" + tgl_akhir;
+		$.ajax({
+			url: url + request,
+			method: "GET",
+			success: function(response) {
+				var data = JSON.parse(response)
+				$("#pieChart").height($("#cTable").height() - 85);
+				var donutData = {
+					labels: data.labels,
+					datasets: [{
+						data: data.data,
+						backgroundColor: data.backgroundColor,
+					}]
+				}
+				var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+				var pieData = donutData;
+				var pieOptions = {
+					maintainAspectRatio: false,
+					responsive: true,
+					legend: {
+						labels: {
+							fontColor: "white",
+						}
+					},
+				}
+				new Chart(pieChartCanvas, {
+					type: 'pie',
+					data: pieData,
+					options: pieOptions
+				})
+			}
+		});
+	}
+
+	function get_table(url, tgl_awal, tgl_akhir) {
+		$("#dtTable tbody").empty();
+		var request = "tanggal_awal=" + tgl_awal + "&tanggal_akhir=" + tgl_akhir;
+		$.ajax({
+			url: url + request,
+			method: "GET",
+			success: function(data) {
+				var opts = JSON.parse(data);
+				$.each(opts, function(key, dt) {
+					$("#dtTable tbody").append(
+						"<tr>" +
+						"<td id='" + key + "' colspan='4' class='bg-info'><strong>" + key + "</strong></td>" +
+						"</tr>"
+					);
+					for (let i = 0; i < dt.length; i++) {
+						$("#dtTable tbody").append(
+							"<tr>" +
+							"<td class='text-center'>" + (i + 1) + "</td>" +
+							"<td>" + dt[i].dokter + "</td>" +
+							"<td class='text-right'>" + number_format(dt[i].pasien) + "</td>" +
+							"<td>" + dt[i].poliklinik + "</td>" +
+							"</tr>"
+						);
+					}
+				});
+			}
+		});
+	}
 </script>
