@@ -27,3 +27,8 @@ function toi($tgl_awal, $tgl_akhir, $jumlah_bed, $jumlah_pasien_keluar)
 	$hari_perawatan = count_date($tgl_awal, $tgl_akhir);
 	return round((($jumlah_bed * $periode) - $hari_perawatan) / $jumlah_pasien_keluar);
 }
+
+function bto($jumlah_pasien_keluar, $kapasitas)
+{
+	return round($jumlah_pasien_keluar / $kapasitas);
+}
