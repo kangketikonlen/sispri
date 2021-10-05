@@ -9,6 +9,10 @@
 		</div>
 	</div>
 	<div class="wrapper">
+		<!-- Preloader -->
+		<div class="preloader flex-column justify-content-center align-items-center">
+			<img class="animation__wobble" src="<?= base_url('assets/images/logo/default.png') ?>" alt="logo" width="200">
+		</div>
 		<!-- Navbar -->
 		<?php $this->load->view($Components['navbar']); ?>
 		<!-- /.navbar -->
