@@ -123,7 +123,9 @@ function fetchOption(optUrl, optId) {
 function requestGet(dataUrl, dataReq) {
 	return new Promise(function (resolve, reject) {
 		var xhr = new XMLHttpRequest();
+		xhr.onprogress = $("#overlay").fadeIn(300);
 		xhr.onload = function () {
+			$("#overlay").fadeOut(300);
 			resolve(this.responseText);
 		};
 		xhr.onerror = reject;
