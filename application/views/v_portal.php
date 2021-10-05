@@ -56,8 +56,8 @@
 									<img src="<?= base_url($Instansi->instansi_logo) ?>" alt="" width="100px">
 								</div>
 								<div class="w-100">
-									<h3 style="font-size:150%"><?= $Info->info_name; ?> <?= $Instansi->instansi_nama ?> <br />
-										<small style="font-size:60%"><?= $Instansi->instansi_alamat ?> (<?= $Instansi->instansi_kontak ?>)</small>
+									<h3 style="font-size:150%;text-transform:uppercase"><?= $Info->info_name; ?> <?= $Instansi->instansi_nama ?> <br />
+										<small style="font-size:60%;text-transform:capitalize"><?= $Instansi->instansi_alamat ?> (<?= $Instansi->instansi_kontak ?>)</small>
 									</h3>
 								</div>
 							</div>
