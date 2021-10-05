@@ -1,15 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-class Sample_dashboard extends MY_Controller
+class Sample_dashboard extends MY_Dashboard
 {
 	public function __construct()
 	{
 		parent::__construct();
-		$isLogin = $this->session->userdata('LoggedIn');
-		if (!$isLogin) {
-			redirect('portal');
-		} else {
-			$this->load->model('Dashboard/Sample_dashboard_model', 'm');
-		}
+		$this->load->model('Dashboard/Sample_dashboard_model', 'm');
 	}
 
 	public function index()
