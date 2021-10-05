@@ -15,14 +15,14 @@
 				<a class="nav-link" href="<?= base_url('dashboard/landing/reset_akses') ?>" role="button"><i class="fa fa-home"></i> Halaman Utama</a>
 			</li>
 		<?php endif ?>
-		<?php if (!empty($this->input->get('indikator'))) : ?>
-			<li class="nav-item">
-				<a class="nav-link" href="<?= base_url('dashboard/rawat_inap?ruangan=') . $this->input->get('ruangan') ?>" role="button"><i class="fa fa-chevron-circle-left"></i> Kembali ke Indikator</a>
-			</li>
-		<?php endif ?>
 		<?php if (!empty($this->input->get('ruangan'))) : ?>
 			<li class="nav-item">
 				<a class="nav-link" href="<?= base_url('dashboard/rawat_inap?') ?>" role="button"><i class="fa fa-chevron-circle-left"></i> Kembali ke Pilih Ruang</a>
+			</li>
+		<?php endif ?>
+		<?php if (!empty($this->input->get('indikator'))) : ?>
+			<li class="nav-item">
+				<a class="nav-link" href="<?= base_url('dashboard/rawat_inap?ruangan=') . $this->input->get('ruangan') ?>" role="button"><i class="fa fa-chevron-circle-left"></i> Kembali ke Indikator</a>
 			</li>
 		<?php endif ?>
 	</ul>
