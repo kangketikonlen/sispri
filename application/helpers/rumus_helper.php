@@ -13,7 +13,7 @@ function bor($tgl_awal, $tgl_akhir, $total_bed)
 	$periode = count_date($tgl_awal, $tgl_akhir);
 	$hari_perawatan = count_date($tgl_awal, $tgl_akhir);
 	// 
-	return ($periode / ($total_bed * $hari_perawatan)) * 100;
+	return round(($periode / ($total_bed * $hari_perawatan)) * 100, 2);
 }
 
 function avlos($lama_dirawat, $jumlah_pasien_keluar)
