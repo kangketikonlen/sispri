@@ -29,11 +29,7 @@ class Pasien_covid extends MY_Dashboard
 		$data = array();
 		$ruangan = $this->m->get_ruangan();
 		foreach ($ruangan as $ruangan) {
-			if ($ruangan->kelas == "ICU") {
-				$data[$ruangan->kelas] = $this->m->get_table_data($ruangan->nama_ruang, $ruangan->kelas, $tgl_awal, $tgl_akhir);
-			} else {
-				$data[$ruangan->kelas] = 0;
-			}
+			$data[$ruangan->kelas] = $this->m->get_table_data($ruangan->nama_ruang, $ruangan->kelas, $tgl_awal, $tgl_akhir);
 		}
 		echo json_encode($data);
 	}
@@ -48,11 +44,7 @@ class Pasien_covid extends MY_Dashboard
 		foreach ($ruangan as $ruangan) {
 			$labels[] = $ruangan->kelas;
 			$backgroundColor[] = ($i++ % 2 == 0) ? '#39A388' : '#6ECB63';
-			if ($ruangan->kelas == "ICU") {
-				$data[] = $this->m->hitung_pasien($ruangan->nama_ruang, $ruangan->kelas);
-			} else {
-				$data[] = 0;
-			}
+			$data[] = $this->m->hitung_pasien($ruangan->nama_ruang, $ruangan->kelas);
 		}
 
 		$data = array(

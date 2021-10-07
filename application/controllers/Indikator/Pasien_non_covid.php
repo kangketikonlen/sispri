@@ -44,11 +44,7 @@ class Pasien_non_covid extends MY_Dashboard
 		foreach ($ruangan as $ruangan) {
 			$labels[] = $ruangan->kelas;
 			$backgroundColor[] = ($i++ % 2 == 0) ? '#39A388' : '#6ECB63';
-			if ($ruangan->kelas != "ICU") {
-				$data[] = $this->m->hitung_pasien($ruangan->nama_ruang, $ruangan->kelas);
-			} else {
-				$data[] = 0;
-			}
+			$data[] = $this->m->hitung_pasien($ruangan->nama_ruang, $ruangan->kelas);
 		}
 
 		$data = array(
