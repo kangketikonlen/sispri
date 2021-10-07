@@ -22,7 +22,7 @@
 			<a href="<?= base_url('dashboard/rawat_inap?ruangan=') . urlencode($list->nama_ruang) ?>" class='text-light'>
 				<div id="poliklinik" class="small-box" style="background: <?= ($i++ % 2 == 0) ? '#39A388' : '#6ECB63'; ?>">
 					<div class="inner">
-						<h3><?= $list->nama_ruang ?></h3>
+						<h4><?= $list->nama_ruang ?></h4>
 						<p><span id="<?= $list->id ?>">0</span> Pasien</p>
 					</div>
 					<div class="icon">
