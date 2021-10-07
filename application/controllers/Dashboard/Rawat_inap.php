@@ -35,6 +35,19 @@ class Rawat_inap extends MY_Dashboard
 		$this->load->view('v_main', $data);
 	}
 
+	public function jumlah_pasien()
+	{
+		$tgl_awal = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_awal') . '- 1 day'));
+		$tgl_akhir = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_akhir') . '+ 1 day'));
+		// 
+		$results = array();
+		$ruangan = $this->m->get_data();
+		foreach ($ruangan as $ruang) {
+			$results[$ruang->id] = $this->m->get_jumlah_pasien($ruang->nama_ruang, $tgl_awal, $tgl_akhir);
+		}
+		echo json_encode($results);
+	}
+
 	public function logout()
 	{
 		$this->session->sess_destroy();

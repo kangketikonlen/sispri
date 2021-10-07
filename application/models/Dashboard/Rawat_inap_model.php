@@ -4,6 +4,7 @@ class Rawat_inap_model extends CI_Model
 	protected $ruangan = "daftar_ruangan";
 	protected $kelas = "ak_data_master_kelas";
 	protected $indikator = "ak_data_master_indikator";
+	protected $ri = "data_pendaftaran_ri";
 
 	public function get_data()
 	{
@@ -24,5 +25,16 @@ class Rawat_inap_model extends CI_Model
 	{
 		$this->db->where($this->indikator . '.deleted', false);
 		return $this->db->get($this->indikator)->result();
+	}
+
+	public function get_jumlah_pasien($ruang, $tgl_awal, $tgl_akhir)
+	{
+		$sidawangi = $this->load->database('sdw', TRUE);
+		$sidawangi->where($this->ri . '.date_in>=', $tgl_awal);
+		$sidawangi->where($this->ri . '.date_in<=', $tgl_akhir);
+		if (!empty($ruang)) {
+			$sidawangi->where($this->ri . '.ruang', $ruang);
+		}
+		return $sidawangi->get($this->ri)->num_rows();
 	}
 }
