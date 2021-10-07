@@ -97,10 +97,11 @@ $db['default'] = array(
 
 $db['sdw'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'fath_dev',
-	'password' => 'fathtech123',
-	'database' => 'simrs',
+	'hostname' => 'rspc.ddns.me',
+	'port' => '333',
+	'username' => 'testing',
+	'password' => '*12345678#',
+	'database' => 'dbrsparu',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
