@@ -30,12 +30,12 @@ class Pasien_non_covid_model extends CI_Model
 	public function get_table_data($ruang, $kelas, $tgl_awal, $tgl_akhir)
 	{
 		$sidawangi = $this->load->database('sdw', TRUE);
-		$sidawangi->select('date_in, dokter_rs, count(id) as pasien, kelas');
+		$sidawangi->select('date_in, dokter, count(id) as pasien, kelas');
 		$sidawangi->where($this->ri . '.date_in>=', $tgl_awal);
 		$sidawangi->where($this->ri . '.date_in<=', $tgl_akhir);
 		$sidawangi->where($this->ri . '.ruang', $ruang);
 		$sidawangi->where($this->ri . '.kelas', $kelas);
-		$sidawangi->group_by('dokter_rs');
+		$sidawangi->group_by('dokter');
 		return $sidawangi->get($this->ri)->result_array();
 	}
 }

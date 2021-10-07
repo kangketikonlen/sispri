@@ -4,7 +4,7 @@ class Pasien_non_covid extends MY_Dashboard
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Indikator/Pasien_covid_model', 'm');
+		$this->load->model('Indikator/Pasien_non_covid_model', 'm');
 	}
 
 	public function get_jumlah()
@@ -29,11 +29,7 @@ class Pasien_non_covid extends MY_Dashboard
 		$data = array();
 		$ruangan = $this->m->get_ruangan();
 		foreach ($ruangan as $ruangan) {
-			if ($ruangan->kelas != "ICU") {
-				$data[$ruangan->kelas] = $this->m->get_table_data($ruangan->nama_ruang, $ruangan->kelas, $tgl_awal, $tgl_akhir);
-			} else {
-				$data[$ruangan->kelas] = 0;
-			}
+			$data[$ruangan->kelas] = $this->m->get_table_data($ruangan->nama_ruang, $ruangan->kelas, $tgl_awal, $tgl_akhir);
 		}
 		echo json_encode($data);
 	}

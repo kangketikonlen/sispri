@@ -80,7 +80,7 @@
 					for (let i = 0; i < dt.length; i++) {
 						$("#dtTable tbody").append(
 							"<tr>" +
-							"<td>" + dt[i].dokter_rs + "</td>" +
+							"<td>" + dt[i].dokter + "</td>" +
 							"<td>Kelas " + dt[i].kelas + "</td>" +
 							"<td class='text-right'>" + number_format(dt[i].pasien) + " pasien</td>" +
 							"</tr>"
