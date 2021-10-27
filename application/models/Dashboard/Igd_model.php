@@ -20,6 +20,7 @@ class Igd_model extends CI_Model
 		$sidawangi->select('date_in, diagnosa, count(id) as pasien');
 		$sidawangi->where($this->rd . '.date_in>=', $tgl_awal);
 		$sidawangi->where($this->rd . '.date_in<=', $tgl_akhir);
+		$sidawangi->where($this->rd . '.diagnosa!=', "");
 		$sidawangi->group_by('diagnosa');
 		return $sidawangi->get($this->rd)->result_array();
 	}
