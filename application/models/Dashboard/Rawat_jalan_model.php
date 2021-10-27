@@ -43,6 +43,7 @@ class Rawat_jalan_model extends CI_Model
 		$sidawangi->select('date, dokter, count(id) as pasien, poliklinik');
 		$sidawangi->where($this->rj . '.date>=', $tgl_awal);
 		$sidawangi->where($this->rj . '.date<=', $tgl_akhir);
+		$sidawangi->where($this->rj . '.dokter!=', "");
 		$sidawangi->like($this->rj . '.poliklinik', $poli, "both");
 		$sidawangi->group_by('dokter');
 		return $sidawangi->get($this->rj)->result_array();
