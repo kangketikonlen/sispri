@@ -4,13 +4,15 @@
 		var tgl_awal = $("#tanggal_awal").val();
 		var tgl_akhir = $("#tanggal_akhir").val();
 		// 
-		getData(url, tgl_awal, tgl_akhir);
-		// 
-		$("#filter").click(function() {
-			tgl_awal = $("#tanggal_awal").val();
-			tgl_akhir = $("#tanggal_akhir").val();
+		<?php if (empty($this->input->get('ruangan'))) : ?>
 			getData(url, tgl_awal, tgl_akhir);
-		});
+			// 
+			$("#filter").click(function() {
+				tgl_awal = $("#tanggal_awal").val();
+				tgl_akhir = $("#tanggal_akhir").val();
+				getData(url, tgl_awal, tgl_akhir);
+			});
+		<?php endif ?>
 	});
 
 	function getData(url, tgl_awal, tgl_akhir) {

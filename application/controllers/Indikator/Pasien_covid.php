@@ -12,11 +12,7 @@ class Pasien_covid extends MY_Dashboard
 		$results = array();
 		$ruangan = $this->m->get_ruangan();
 		foreach ($ruangan as $ruangan) {
-			if ($ruangan->kelas == "ICU") {
-				$results[$ruangan->id] = $this->m->hitung_pasien($ruangan->nama_ruang, $ruangan->kelas);
-			} else {
-				$results[$ruangan->id] = 0;
-			}
+			$results[$ruangan->id] = $this->m->hitung_pasien($ruangan->nama_ruang, $ruangan->kelas);
 		}
 		echo json_encode($results);
 	}

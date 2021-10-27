@@ -35,6 +35,7 @@ class Pasien_covid_model extends CI_Model
 		$sidawangi->where($this->ri . '.date_in<=', $tgl_akhir);
 		$sidawangi->where($this->ri . '.ruang', $ruang);
 		$sidawangi->where($this->ri . '.kelas', $kelas);
+		$sidawangi->like($this->ri . '.diagnosa_masuk', "covid", "both");
 		$sidawangi->group_by('dokter_rs');
 		return $sidawangi->get($this->ri)->result_array();
 	}
