@@ -81,6 +81,27 @@ class Rawat_jalan extends MY_Dashboard
 		echo json_encode($data);
 	}
 
+	public function jumlah_pembayaran_sktm()
+	{
+		$tgl_awal = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_awal') . '- 1 day'));
+		$tgl_akhir = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_akhir') . '+ 1 day'));
+		echo $this->m->get_pembayaran('sktm', $tgl_awal, $tgl_akhir);
+	}
+
+	public function jumlah_pembayaran_bpjs()
+	{
+		$tgl_awal = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_awal') . '- 1 day'));
+		$tgl_akhir = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_akhir') . '+ 1 day'));
+		echo $this->m->get_pembayaran('bpjs', $tgl_awal, $tgl_akhir);
+	}
+
+	public function jumlah_pembayaran_tunai()
+	{
+		$tgl_awal = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_awal') . '- 1 day'));
+		$tgl_akhir = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_akhir') . '+ 1 day'));
+		echo $this->m->get_pembayaran('tunai', $tgl_awal, $tgl_akhir);
+	}
+
 	public function logout()
 	{
 		$this->session->sess_destroy();

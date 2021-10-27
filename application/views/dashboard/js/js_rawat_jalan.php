@@ -93,4 +93,33 @@
 			}
 		});
 	}
+
+	function showModal(slug, deskripsi) {
+		$('#caraBayar').modal({
+			backdrop: "static",
+			keyboard: false
+		})
+		$("#cb-poli", $('#caraBayar')).html(deskripsi)
+		// 
+		var tgl_awal = $("#tanggal_awal").val();
+		var tgl_akhir = $("#tanggal_akhir").val();
+		// 
+		var url_sktm = "<?= base_url('dashboard/rawat_jalan/jumlah_pembayaran_sktm?') ?>";
+		var url_bpjs = "<?= base_url('dashboard/rawat_jalan/jumlah_pembayaran_bpjs?') ?>";
+		var url_tunai = "<?= base_url('dashboard/rawat_jalan/jumlah_pembayaran_tunai?') ?>";
+		// 
+		var request = "poli=" + slug + "&tanggal_awal=" + tgl_awal + "&tanggal_akhir=" + tgl_akhir;
+		// 
+		requestGet(url_sktm + request).then(function(results) {
+			$("#sktm-value").html(results)
+		});
+		// 
+		requestGet(url_bpjs + request).then(function(results) {
+			$("#bpjs-value").html(results)
+		});
+		// 
+		requestGet(url_tunai + request).then(function(results) {
+			$("#tunai-value").html(results)
+		});
+	}
 </script>

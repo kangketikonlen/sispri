@@ -48,4 +48,20 @@ class Rawat_jalan_model extends CI_Model
 		$sidawangi->group_by('dokter');
 		return $sidawangi->get($this->rj)->result_array();
 	}
+
+	public function get_pembayaran($jenis, $tgl_awal, $tgl_akhir)
+	{
+		$sidawangi = $this->load->database('sdw', TRUE);
+		$sidawangi->where($this->rj . '.date>=', $tgl_awal);
+		$sidawangi->where($this->rj . '.date<=', $tgl_akhir);
+		$sidawangi->like($this->rj . '.poliklinik', $this->input->get('poli'), "both");
+		if ($jenis == "sktm") {
+			$sidawangi->where($this->rj . '.cara_bayar', "SKTM");
+		} elseif ($jenis == "bpjs") {
+			$sidawangi->where($this->rj . '.cara_bayar', "BPJS");
+		} else {
+			$sidawangi->where($this->rj . '.cara_bayar', "TUNAI");
+		}
+		return $sidawangi->get($this->rj)->num_rows();
+	}
 }
