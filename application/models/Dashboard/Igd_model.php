@@ -8,8 +8,10 @@ class Igd_model extends CI_Model
 		$sidawangi = $this->load->database('sdw', TRUE);
 		$sidawangi->where($this->rd . '.date_in>=', $tgl_awal);
 		$sidawangi->where($this->rd . '.date_in<=', $tgl_akhir);
-		if (!empty($query)) {
+		if ($query == 1) {
 			$sidawangi->where($this->rd . '.rujukan', 'YA');
+		} elseif ($query == 2) {
+			$sidawangi->where($this->rd . '.rujukan!=', 'YA');
 		}
 		return $sidawangi->get($this->rd)->num_rows();
 	}

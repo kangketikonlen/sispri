@@ -28,18 +28,25 @@ class Igd extends MY_Dashboard
 	{
 		$data = array(
 			array(
-				'kode' => 'jpasien',
-				'background' => '#00EAD3',
-				'icon' => 'fa-users',
-				'deskripsi' => 'Jumlah Pasien',
-				'query' => 0
-			),
-			array(
 				'kode' => 'jrujuk',
 				'background' => '#FF449F',
 				'icon' => 'fa-ambulance',
 				'deskripsi' => 'Jumlah Pasien Rujuk',
 				'query' => 1
+			),
+			array(
+				'kode' => 'jnonrujuk',
+				'background' => '#4E9F3D',
+				'icon' => 'fa-bed',
+				'deskripsi' => 'Jumlah Pasien Tidak Rujuk',
+				'query' => 2
+			),
+			array(
+				'kode' => 'jpasien',
+				'background' => '#00EAD3',
+				'icon' => 'fa-users',
+				'deskripsi' => 'Jumlah Pasien Keseluruhan',
+				'query' => 3
 			)
 		);
 		return $data;
