@@ -40,11 +40,11 @@ class Rawat_jalan_model extends CI_Model
 	public function get_table_data($poli, $tgl_awal, $tgl_akhir)
 	{
 		$sidawangi = $this->load->database('sdw', TRUE);
-		$sidawangi->select('date, dokter_konsul, count(id) as pasien, poliklinik');
+		$sidawangi->select('date, dokter, count(id) as pasien, poliklinik');
 		$sidawangi->where($this->rj . '.date>=', $tgl_awal);
 		$sidawangi->where($this->rj . '.date<=', $tgl_akhir);
 		$sidawangi->like($this->rj . '.poliklinik', $poli, "both");
-		$sidawangi->group_by('dokter_konsul');
+		$sidawangi->group_by('dokter');
 		return $sidawangi->get($this->rj)->result_array();
 	}
 }

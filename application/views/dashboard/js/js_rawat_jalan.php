@@ -83,7 +83,7 @@
 						$("#dtTable tbody").append(
 							"<tr>" +
 							"<td class='text-center'>" + (i + 1) + "</td>" +
-							"<td>" + dt[i].dokter_konsul + "</td>" +
+							"<td>" + dt[i].dokter + "</td>" +
 							"<td class='text-right'>" + number_format(dt[i].pasien) + "</td>" +
 							"<td>" + dt[i].poliklinik + "</td>" +
 							"</tr>"
