@@ -22,7 +22,7 @@
 				<div class="col-lg-3 col-6">
 					<div id="poliklinik" class="small-box p-2" style="background:<?= $list->poliklinik_color ?>" onclick="showModal('<?= $list->poliklinik_slug ?>', '<?= $list->poliklinik_deskripsi ?>')">
 						<div class="inner">
-							<h3><span id="<?= $list->poliklinik_kode ?>">0</span> Pasien</h3>
+							<h4><span id="<?= $list->poliklinik_kode ?>">0</span> Pasien</h4>
 							<p><?= $list->poliklinik_deskripsi ?></p>
 						</div>
 						<div class="icon">
@@ -34,7 +34,7 @@
 			<div class="col-lg-3 col-6">
 				<div id="poliklinik" class="small-box p-2" style="background:#E99497">
 					<div class="inner">
-						<h3><span id="total">0</span> Pasien</h3>
+						<h4><span id="total">0</span> Pasien</h4>
 						<p>Total</p>
 					</div>
 					<div class="icon">
@@ -93,7 +93,7 @@
 					<div class="col-lg-6">
 						<div id="sktm" class="small-box p-2" style="background:#FF7777">
 							<div class="inner">
-								<h3><span id="sktm-value">0</span> Pasien</h3>
+								<h4><span id="sktm-value">0</span> Pasien</h4>
 								<p>SKTM</p>
 							</div>
 							<div class="icon">
@@ -104,7 +104,7 @@
 					<div class="col-lg-6">
 						<div id="bpjs" class="small-box p-2" style="background:#FDA65D">
 							<div class="inner">
-								<h3><span id="bpjs-value">0</span> Pasien</h3>
+								<h4><span id="bpjs-value">0</span> Pasien</h4>
 								<p>BPJS</p>
 							</div>
 							<div class="icon">
@@ -115,7 +115,7 @@
 					<div class="col-lg-12">
 						<div id="tunai" class="small-box p-2 mb-0" style="background:#4E9F3D">
 							<div class="inner">
-								<h3><span id="tunai-value">0</span> Pasien</h3>
+								<h4><span id="tunai-value">0</span> Pasien</h4>
 								<p>TUNAI</p>
 							</div>
 							<div class="icon">

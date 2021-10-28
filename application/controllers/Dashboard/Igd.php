@@ -38,7 +38,7 @@ class Igd extends MY_Dashboard
 				'kode' => 'jnonrujuk',
 				'background' => '#4E9F3D',
 				'icon' => 'fa-bed',
-				'deskripsi' => 'Jumlah Pasien Tidak Rujuk',
+				'deskripsi' => 'Jumlah Pasien Pulang',
 				'query' => 2
 			),
 			array(
@@ -58,10 +58,15 @@ class Igd extends MY_Dashboard
 		$tgl_akhir = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_akhir') . '+ 1 day'));
 		// 
 		$results = array();
+		$jumlah = 0;
 		$parameters = $this->get_parameter();
 		foreach ($parameters as $param) {
-			$results[$param['kode']] = $this->m->get_jumlah_pasien($param['query'], $tgl_awal, $tgl_akhir);
+			if ($param['kode'] != 'jpasien') {
+				$results[$param['kode']] = $this->m->get_jumlah_pasien($param['query'], $tgl_awal, $tgl_akhir);
+				$jumlah += $results[$param['kode']];
+			}
 		}
+		$results['jpasien'] = $jumlah;
 		echo json_encode($results);
 	}
 

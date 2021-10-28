@@ -20,9 +20,9 @@
 		<div class="row justify-content-around">
 			<?php foreach ($parameter as $list) : ?>
 				<div class="col-lg-3 col-6">
-					<div id="poliklinik" class="small-box p-2" style="background:<?= $list['background'] ?>">
+					<div id="poliklinik" class="small-box p-1" style="background:<?= $list['background'] ?>">
 						<div class="inner">
-							<h3><span id="<?= $list['kode'] ?>">0</span> Pasien</h3>
+							<h4><span id="<?= $list['kode'] ?>">0</span> Pasien</h4>
 							<p><?= $list['deskripsi'] ?></p>
 						</div>
 						<div class="icon">

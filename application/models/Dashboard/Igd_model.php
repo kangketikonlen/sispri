@@ -9,9 +9,9 @@ class Igd_model extends CI_Model
 		$sidawangi->where($this->rd . '.date_in>=', $tgl_awal);
 		$sidawangi->where($this->rd . '.date_in<=', $tgl_akhir);
 		if ($query == 1) {
-			$sidawangi->where($this->rd . '.rujukan', 'YA');
+			$sidawangi->where($this->rd . '.tujuan_keluar', 'RS lain');
 		} elseif ($query == 2) {
-			$sidawangi->where($this->rd . '.rujukan!=', 'YA');
+			$sidawangi->where($this->rd . '.tujuan_keluar', 'Pulang');
 		}
 		return $sidawangi->get($this->rd)->num_rows();
 	}

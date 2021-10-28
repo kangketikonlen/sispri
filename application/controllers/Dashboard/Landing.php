@@ -4,7 +4,11 @@ class Landing extends MY_Dashboard
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Dashboard/Landing_model', 'm');
+		if (empty($this->session->userdata('url_tmp')) || $this->uri->segment(3) == "reset_akses") {
+			$this->load->model('Dashboard/Landing_model', 'm');
+		} else {
+			redirect('portal');
+		}
 	}
 
 	public function index()
@@ -49,8 +53,8 @@ class Landing extends MY_Dashboard
 		$this->session->unset_userdata('level_id');
 		$this->session->set_userdata('level_id', $this->session->userdata('level_tmp'));
 		$this->session->set_userdata('UrlDash', $this->session->userdata('url_tmp'));
-		$this->session->unset_userdata('level_tmp');
-		$this->session->unset_userdata('url_tmp');
+		$this->session->set_userdata('level_tmp', NULL);
+		$this->session->set_userdata('url_tmp', NULL);
 		redirect('portal');
 	}
 
