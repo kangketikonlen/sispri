@@ -11,27 +11,28 @@ class Bor extends MY_Dashboard
 	{
 		$results = array();
 		$total_bed = 0;
+		$tgl_awal = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_awal') . '- 1 day'));
+		$tgl_akhir = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_akhir') . '+ 1 day'));
 		$ruangan = $this->m->get_ruangan();
 		foreach ($ruangan as $ruangan) {
-			$results[$ruangan->id] = $this->hitung_bor($ruangan->kapasitas);
+			$jumlah_pasien = $this->m->get_jumlah_pasien($ruangan->nama_ruang, $ruangan->kelas, $tgl_awal, $tgl_akhir);
+			$results[$ruangan->id] = $this->hitung_bor($jumlah_pasien, $ruangan->kapasitas, $tgl_awal, $tgl_akhir);
 			$total_bed += $ruangan->kapasitas;
 		}
-		$results['total'] = $this->hitung_bor($ruangan->kapasitas);
+		$results['total'] = $this->hitung_bor($jumlah_pasien, $ruangan->kapasitas, $tgl_awal, $tgl_akhir);
 
 		echo json_encode($results);
 	}
 
-	private function hitung_bor($total_bed)
+	private function hitung_bor($jumlah_pasien, $total_bed, $tgl_awal, $tgl_akhir)
 	{
-		$tgl_awal = $this->input->get('tanggal_awal');
-		$tgl_akhir = $this->input->get('tanggal_akhir');
-		return bor($tgl_awal, $tgl_akhir, $total_bed);
+		return bor($jumlah_pasien, $total_bed, $tgl_awal, $tgl_akhir);
 	}
 
 	public function get_table()
 	{
-		$tgl_awal = $this->input->get('tanggal_awal');
-		$tgl_akhir = $this->input->get('tanggal_akhir');
+		$tgl_awal = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_awal') . '- 1 day'));
+		$tgl_akhir = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_akhir') . '+ 1 day'));
 		// 
 		$data = array();
 		$ruangan = $this->m->get_ruangan();
@@ -53,12 +54,15 @@ class Bor extends MY_Dashboard
 		$labels = array();
 		$backgroundColor = array();
 		$data = array();
+		$tgl_awal = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_awal') . '- 1 day'));
+		$tgl_akhir = date("Y-m-d H:i:s", strtotime($this->input->get('tanggal_akhir') . '+ 1 day'));
 		$ruangan = $this->m->get_ruangan();
 		$i = 0;
 		foreach ($ruangan as $ruangan) {
+			$jumlah_pasien = $this->m->get_jumlah_pasien($ruangan->nama_ruang, $ruangan->kelas, $tgl_awal, $tgl_akhir);
 			$labels[] = $ruangan->kelas;
 			$backgroundColor[] = ($i++ % 2 == 0) ? '#39A388' : '#6ECB63';
-			$data[] = $this->hitung_bor($ruangan->kapasitas);
+			$data[] = $this->hitung_bor($jumlah_pasien, $ruangan->kapasitas, $tgl_awal, $tgl_akhir);
 		}
 
 		$data = array(

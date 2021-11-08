@@ -8,12 +8,11 @@ function count_date($tgl_awal, $tgl_akhir)
 	return $difference->format("%a");
 }
 
-function bor($tgl_awal, $tgl_akhir, $total_bed)
+function bor($jumlah_pasien, $total_bed, $tgl_awal, $tgl_akhir)
 {
-	$periode = count_date($tgl_awal, $tgl_akhir);
-	$hari_perawatan = count_date($tgl_awal, $tgl_akhir);
-	// 
-	return round(($periode / ($total_bed * $hari_perawatan)) * 100, 2);
+	$hari = count_date($tgl_awal, $tgl_akhir);
+	$hasil = $jumlah_pasien / ($total_bed * $hari);
+	return round(($hasil * 100), 2);
 }
 
 function avlos($lama_dirawat, $jumlah_pasien_keluar)
