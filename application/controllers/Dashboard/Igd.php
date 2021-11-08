@@ -38,7 +38,7 @@ class Igd extends MY_Dashboard
 				'kode' => 'jnonrujuk',
 				'background' => '#4E9F3D',
 				'icon' => 'fa-bed',
-				'deskripsi' => 'Jumlah Pasien Pulang',
+				'deskripsi' => 'Jumlah Pasien Rawat',
 				'query' => 2
 			),
 			array(
