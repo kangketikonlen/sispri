@@ -32,7 +32,6 @@ class Igd_model extends CI_Model
 		$sidawangi = $this->load->database('sdw', TRUE);
 		$sidawangi->where($this->rd . '.date_in>=', $tgl_awal);
 		$sidawangi->where($this->rd . '.date_in<=', $tgl_akhir);
-		// $sidawangi->like($this->rd . '.poliklinik', $this->input->get('poli'), "both");
 		if ($jenis == "sktm") {
 			if ($query == 1) {
 				$sidawangi->where($this->rd . '.tujuan_keluar', 'RS lain');
